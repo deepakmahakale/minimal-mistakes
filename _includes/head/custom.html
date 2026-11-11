@@ -1,5 +1,21 @@
 <!-- start custom head snippets -->
 
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/apple-touch-icon.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/favicon-32x32.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ '/favicon-16x16.png' | relative_url }}">
+<link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}">
+{% if site.mask_icon_color %}
+<link rel="mask-icon" href="{{ '/safari-pinned-tab.svg' | relative_url }}" color="{{ site.mask_icon_color }}">
+<meta name="msapplication-TileColor" content="{{ site.mask_icon_color }}">
+{% endif %}
+<meta name="theme-color" content="#ffffff">
 
+<script>
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+      event.preventDefault();
+      document.querySelector('.search__toggle').click();
+    }
+  });
+</script>
 <!-- end custom head snippets -->
