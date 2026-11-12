@@ -10,6 +10,10 @@
 {% endif %}
 <meta name="theme-color" content="#ffffff">
 
+{% if page.robots %}
+  <meta name="robots" content="{{ page.robots }}">
+{% endif %}
+
 {% if page.collection == "posts" %}
   {% include seo-article.html %}
 {% endif %}
