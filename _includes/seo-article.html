@@ -1,0 +1,43 @@
+{%- comment -%}
+  BlogPosting structured data for posts. The theme's seo.html only adds JSON-LD
+  on the home page. Runs after seo.html, so it reuses author and page_large_image.
+{%- endcomment -%}
+{%- assign article_image = page_large_image | default: page_teaser_image | default: site_og_image -%}
+{%- assign article_description = page.description | default: page.excerpt | default: site.description | markdownify | strip_html | strip_newlines | strip -%}
+{%- assign author_url = site.author.uri | default: site.url -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | markdownify | strip_html | strip_newlines | strip | jsonify }},
+  "description": {{ article_description | jsonify }},
+  "url": {{ canonical_url | jsonify }},
+  "mainEntityOfPage": {{ canonical_url | jsonify }},
+  {%- if article_image %}
+  "image": {{ article_image | jsonify }},
+  {%- endif %}
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  "dateModified": {{ page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
+  {%- if page.tags.size > 0 %}
+  "keywords": {{ page.tags | join: ", " | jsonify }},
+  {%- endif %}
+  "author": {
+    "@type": "Person",
+    "name": {{ author.name | default: site.author.name | jsonify }},
+    "url": {{ author_url | jsonify }}
+    {%- if site.social.links.size > 0 -%},
+    "sameAs": {{ site.social.links | jsonify }}
+    {%- endif %}
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }},
+    "url": {{ author_url | jsonify }}
+  },
+  "isPartOf": {
+    "@type": "Blog",
+    "name": {{ site.title | jsonify }},
+    "url": {{ "/" | absolute_url | jsonify }}
+  }
+}
+</script>

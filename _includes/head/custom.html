@@ -10,6 +10,10 @@
 {% endif %}
 <meta name="theme-color" content="#ffffff">
 
+{% if page.collection == "posts" %}
+  {% include seo-article.html %}
+{% endif %}
+
 <script>
   document.addEventListener('keydown', function (event) {
     if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
